@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Others</key>
+	<array>
+		<string>com.progenius.namewhale.unlimited2</string>
+	</array>
+	<key>SharedSecret</key>
+	<string>f2a724803e6e4ea0a79644972da5a15c</string>
+</dict>
+</plist>
