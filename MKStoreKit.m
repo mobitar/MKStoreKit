@@ -327,11 +327,17 @@ static NSDictionary *errorDictionary;
     if (!error) {
       NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
       NSInteger status = [jsonResponse[@"status"] integerValue];
-      NSString *originalAppVersion = jsonResponse[@"receipt"][@"original_application_version"];
-        if(originalAppVersion) {
-            [self.purchaseRecord setObject:originalAppVersion forKey:kOriginalAppVersionKey];
+        if(jsonResponse) {
+            if(![jsonResponse[@"receipt"] isEqual:[NSNull null]]) {
+                if(![jsonResponse[@"receipt"][@"original_application_version"] isEqual:[NSNull null]]) {
+                    NSString *originalAppVersion = jsonResponse[@"receipt"][@"original_application_version"];
+                    if(originalAppVersion) {
+                        [self.purchaseRecord setObject:originalAppVersion forKey:kOriginalAppVersionKey];
+                    }
+                    [self savePurchaseRecord];
+                }
+            }
         }
-      [self savePurchaseRecord];
       
       if (status != 0) {
         NSError *error = [NSError errorWithDomain:@"com.mugunthkumar.mkstorekit" code:status
