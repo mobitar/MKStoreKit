@@ -328,12 +328,11 @@ static NSDictionary *errorDictionary;
       NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
       NSInteger status = [jsonResponse[@"status"] integerValue];
         if(jsonResponse) {
-            if(![jsonResponse[@"receipt"] isEqual:[NSNull null]]) {
-                if(![jsonResponse[@"receipt"][@"original_application_version"] isEqual:[NSNull null]]) {
-                    NSString *originalAppVersion = jsonResponse[@"receipt"][@"original_application_version"];
-                    if(originalAppVersion) {
-                        [self.purchaseRecord setObject:originalAppVersion forKey:kOriginalAppVersionKey];
-                    }
+            id receipt = jsonResponse[@"receipt"];
+            if(![receipt isEqual:[NSNull null]]) {
+                NSString *originalAppVersion = receipt[@"original_application_version"];
+                if(originalAppVersion && ![originalAppVersion isEqual:[NSNull null]]) {
+                    [self.purchaseRecord setObject:originalAppVersion forKey:kOriginalAppVersionKey];
                     [self savePurchaseRecord];
                 }
             }
